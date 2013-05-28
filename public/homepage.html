@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html class = "js no-flexbox canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+		<title>Mifflin / Revelry Dashboard - Badger Herald</title>
+		<meta content="" name="description">
+		<meta content="width=device-width" name="viewport">
+		<link href="css/main.css" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Noto+Serif|Yanone+Kaffeesatz:400,700">
+		<link rel="Shortcut Icon" href="/rsc/images/favicon.ico" type="image/x-icon"/>
+		<script src="//www.google-analytics.com/ga.js"></script>
+		<script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+		<style>
+			#mifflin-stream .stream-post-avatar img,
+			#revelry-stream .stream-post-avatar img {
+				max-width: 48px;
+			}
+
+			#topic-list li a.active {
+				color: #FFD900;
+			}
+		</style>
+
+	<meta property="og:title" content="Revelry vs Mifflin"/>
+	<meta property="og:type" content="article"/>
+	<meta property="og:image" content="http://badgerherald.com/mifflin-revelry.png"/>
+	<meta property="og:site_name" content="The Badger Herald"/>
+	<meta property="fb:admins" content="623560050,1152330073"/>
+	<meta property="og:description" content="Watch the social buzz around Mifflin and Revelry in real time.  See how each event is stacking up.  Which are you tweeting for?"/>
+
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:site" content="@badgerherald">
+	<meta name="twitter:url" content="http://badgerherald.com/mifflin">
+	<meta name="twitter:title" content="Revelry vs Mifflin">
+	<meta name="twitter:description" content="Watch the social buzz around Mifflin and Revelry in real time.  See how each event is stacking up.  Which are you tweeting for?">
+	<meta name="twitter:image" content="http://badgerherald.com/mifflin-revelry.png">
+
+
+	</head>
+	<body>
+	<div id="load-container">
+		<!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+		<div class="header-container">
+		    <header class="wrapper clearfix">
+
+		        <ul id="topic-list">
+			    <li><a data-category="" class="active" href="#">Right Now:</a></li>
+		            <li><a data-category="mifflin" class="inactive" href="#">Check out our live Mifflin & Revelry Twitter Tracker.  See How the events stack up.</a></li>
+
+		        </ul>
+
+		        <div class="mifflin-number number active">
+		                <span class="the-number">0</span>
+		                <span class="tag">Mifflin Posts</span>
+		        </div>
+		        <ul id="ticker-bar">
+		                <li style="width:50%" class="m"><span>Mifflin Posts</span></li>
+		                <li style="width:50%" class="r"><span>Revelry Posts</span></li>
+		        </ul>
+		        <div class="revelry-number number">
+		                <span class="tag">Revelry Posts</span>
+		                <span class="the-number">0</span>
+		        </div>
+		    </header>
+		</div>
+</div>
+		<!-- from production
+		<script src="http://d.badgerherald.com:3000/socket.io/socket.io.js"></script>
+        -->
+        <script src="/socket.io/socket.io.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/async.js"></script>
+		<script src="js/moment.min.js"></script>
+		<script src="js/jquery.sortelements.js"></script>
+		<script src="js/jquery.ui.effect.js"></script>
+		<script src="js/jquery.ui.effect-highlight.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+
+	</div><!-- Load Container -->
+	<div id="loader"></div>
+	</body>
+</html>

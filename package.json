@@ -1,0 +1,21 @@
+{
+  "name": "bh-mifflin-revelry",
+  "version": "13.5.27",
+  "description": "mifflin-revelry dashboard",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "Zach Thomae",
+  "license": "BSD",
+  "private": true,
+  "dependencies": {
+    "express": "3.x",
+    "ntwitter": "0.5",
+    "socket.io": "0.9.14",
+    "mongojs": "0.7.4",
+    "async": "0.2.7",
+    "xmlhttprequest": "1.5.0"
+  }
+}
