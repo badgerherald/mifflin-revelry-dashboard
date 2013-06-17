@@ -1,5 +1,6 @@
 (function($) {
     var main_tweets = [];
+    var herald_articles = [];
     var filtered_tweets = {
         regex: ''
         // More?
@@ -9,12 +10,12 @@
     var streams = {
         'mifflin_tweet': {
             base: '#mifflin-stream .stream-social-posts',
-            total: 0,
+            total: 7120,
             class_char: 'm'
         },
         'revelry_tweet': {
             base: '#revelry-stream .stream-social-posts',
-            total: 0,
+            total: 1001,
             class_char: 'r'
         },
         'herald': {
@@ -53,57 +54,6 @@
             return '<a target="_blank" href="http://twitter.com/' + username + '">' + $1 + '</a>';
         });
         return text;
-    }
-
-    // This function doesn't believe in DRY
-    function update_top_bar() {
-        // Draw the bar
-        var mifflin_total = streams['mifflin_tweet'].total;
-        var revelry_total = streams['revelry_tweet'].total;
-        var total = mifflin_total + revelry_total;
-        var m_pct;
-        var r_pct;
-
-        if (total === 0) {
-            m_pct = 50;
-            r_pct = 50;
-        } else {
-            m_pct = 100 * mifflin_total / total;
-            r_pct = 100 - m_pct;
-        }
-
-        if (m_pct < 10) {
-            $('li.m span').css('display', 'none');
-        } else if (m_pct < 15) {
-            $('li.m span').css('display', 'block');
-            $('li.m span').css('font-size', '0.7em');
-            $('li.m spam').css('padding', '0 5px');
-        } else {
-            $('li.m span').css('display', 'block');
-            $('li.m span').css('font-size', '1em');
-            $('li.m span').css('padding', '0 15px');
-        }
-
-        if (r_pct < 10) {
-            $('li.r span').css('display', 'none');
-        } else if (r_pct < 15) {
-            $('li.r span').css('display', 'block');
-            $('li.r span').css('font-size', '0.7em');
-            $('li.r spam').css('padding', '0 5px');
-        } else {
-            $('li.r span').css('display', 'block');
-            $('li.r span').css('font-size', '1em');
-            $('li.r span').css('padding', '0 15px');
-        }
-
-        $('#ticker-bar li.m').css('width', m_pct + '%');
-        $('#ticker-bar li.r').css('width', r_pct + '%');
-
-        // Update the counts
-        $('.mifflin-number .the-number').html(streams['mifflin_tweet'].total);
-        $('.revelry-number .the-number').html(streams['revelry_tweet'].total);
-        $('#mobile-nav .footer-mifflin a .nav-num').html(streams['mifflin_tweet'].total);
-        $('#mobile-nav .footer-revelry a .nav-num').html(streams['revelry_tweet'].total);
     }
 
     // Super-function (read: in need of refactoring) for making posts from the main_posts array
@@ -201,9 +151,6 @@
                     stream.scrollTop(new_top);
                 }
             }
-
-            update_top_bar();
-
         });
 
         // Try to reload images after a small delay
@@ -263,11 +210,13 @@
     function update_times() {
         $('time').each(function() {
             var time = $(this).data('time');
+            if (!time) {
+                time = moment("20130505", "YYYYMMDD")
+            }
             $(this).html(moment(time).startOf('minute').fromNow());
         });
     }
 
-    setInterval(update_times, 60000);
 
     // These functions (clearly by a different author, in this case @mjneil) do the hard work of
     // parsing an XML feed of the latest articles about mifflin/revelry.
@@ -309,10 +258,34 @@
         });
     }
 
-    function update_herald() {
-        $.get('/update_herald/', function(data) {
-            insert_articles(data);
+    // This is a special function for getting data out of the DOM elements.
+    // Most functionality comes from the tweets being stored in JS. Since
+    // the static page only has DOM, we turn them back into data.
+    function make_stream_data(stream_name, stream_obj) {
+        var tweets = [];
+        $(stream_obj.base).find('.stream-post').each(function(i, d) {
+            tweets.push({
+                'event': stream_name,
+                'text': $(d).find('.post-content-body').text(),
+                'user': $(d).find('.post-content-meta .username').text().trim().substr(1),
+                'count': stream_obj['total'],
+                'id': $(d).attr('id'),
+                'avi': $(d).find('.stream-post-avatar img').attr('src'),
+                'time': moment("20130505", "YYYYMMDD")
+            });
         });
+        return tweets;
+    }
+
+    function remake_data() {
+        var mifflin = streams['mifflin_tweet'],
+            revelry = streams['revelry_tweet'];
+        mifflin.total = parseInt($('.mifflin-number .the-number').text());
+        revelry.total = parseInt($('.revelry-number .the-number').text()); 
+        main_tweets = make_stream_data('mifflin_tweet', mifflin);
+        main_tweets = main_tweets.concat(make_stream_data('revelry_tweet', revelry));
+        console.log(main_tweets);
+        change_filter("");
     }
 
     // Set up DOM events:
@@ -320,6 +293,10 @@
     // * the Herald post sliders
     // * activating filters
     $(document).ready(function(){
+        remake_data();
+        update_times();
+        setTimeout(show_streams, 1000);
+
         setTimeout(function() {
             $('.herald-nav-right').effect("highlight", {color: "#FFD900"}, 700);
             $('.herald-nav-right').effect("highlight", {color: "#FFD900"}, 700);
@@ -347,6 +324,7 @@
         $('.stream-social').css('height', '');
 
         $(window).on('resize', function() {
+            $('#ticker-bar li.r span').css('font-size', $(window).width() <= 1000 ? '0.5em' : '0.7em'); 
             $('.stream-herald-container').css('height', $(window).width() <= 768 ? '0px' : '120px');
             var top = $('.header-container').height();
             $('.stream-social').css('top', top);
