@@ -275,7 +275,7 @@
 
         filtered_tweets.regex = regex;
         async.each(main_tweets, function(element, callback) {
-            if (element.text.match(regex, "i")) {
+	    if (element.text.match(new RegExp(regex, "i"))) {
                 make_post(element, streams[element.event], 'Twitter', true);
             }
             callback();
