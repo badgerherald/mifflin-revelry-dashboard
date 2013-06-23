@@ -193,7 +193,7 @@
 
         filtered_tweets.regex = regex;
         async.each(main_tweets, function(element, callback) {
-	    if (element.text.match(new RegExp(regex, "i"))) {
+            if (element.text.match(new RegExp(regex, "i"))) {
                 make_post(element, streams[element.event], 'Twitter', true);
             }
             callback();
@@ -264,6 +264,7 @@
     function make_stream_data(stream_name, stream_obj) {
         var tweets = [];
         $(stream_obj.base).find('.stream-post').each(function(i, d) {
+            var img = $(d).find('.post-content-body img').attr('src')
             tweets.push({
                 'event': stream_name,
                 'text': $(d).find('.post-content-body').text(),
@@ -271,6 +272,7 @@
                 'count': stream_obj['total'],
                 'id': $(d).attr('id'),
                 'avi': $(d).find('.stream-post-avatar img').attr('src'),
+                'img': img,
                 'time': moment("20130505", "YYYYMMDD")
             });
         });
