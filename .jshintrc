@@ -6,6 +6,7 @@
 , "eqnull": true
 , "forin": true
 , "indent": 2
+, "jquery": true
 , "laxbreak": true
 , "laxcomma": true
 , "maxlen": 80
