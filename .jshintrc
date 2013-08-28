@@ -1,0 +1,17 @@
+{
+  "boss": true
+, "browser": true
+, "curly": true
+, "eqeqeq": true
+, "eqnull": true
+, "forin": true
+, "indent": 2
+, "laxbreak": true
+, "laxcomma": true
+, "maxlen": 80
+, "node": true
+, "quotmark": "single"
+, "strict": true
+, "sub": true
+, "trailing": true
+}
