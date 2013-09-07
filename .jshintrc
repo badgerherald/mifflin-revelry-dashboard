@@ -12,7 +12,6 @@
 , "laxcomma": true
 , "maxlen": 80
 , "node": true
-, "quotmark": "single"
 , "strict": true
 , "sub": true
 , "trailing": true
