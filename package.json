@@ -1,6 +1,6 @@
 {
   "name": "bh-mifflin-revelry",
-  "version": "13.5.27",
+  "version": "13.9.7",
   "description": "mifflin-revelry dashboard",
   "main": "app.js",
   "scripts": {
