@@ -1,33 +1,22 @@
 The Badger Herald Mifflin-Revelry Dashboard
 ===========================================
 
-A slightly-polished version of the code that ran the [Mifflin-Revelry Dashboard app](http://badgerherald.com/mifflin/).
+The node.js app that ran the [Mifflin-Revelry Dashboard app](http://badgerherald.com/mifflin/).
 
-Setting up
-----------
+How it works
+------------
 
-- Clone the repository:
-    `git clone git@github.com:badgerherald/mifflin-revelry-dashboard.git`
+In the backend, it uses [ntwitter](https://github.com/AvianFlu/ntwitter) to listen to a public stream of tweets for a list of Mifflin- and Revelry-related search terms and save them in a MongoDB database. In the frontend, it runs a dashboard that connects to the backend and streams tweets with [Socket.IO](http://socket.io/).
 
-- Get the prerequisites:
-    `npm install`
-    
-- Copy `lib/auth/index.js.template` to `lib/auth/index.js` and fill in your Twitter
-authentication information.
+Modules
+-------
 
-- Edit the trackers in `lib/common/index.js`. The app defaults to tracking time-insensitive
-keywords for demonstration purposes. We've also included the trackers we used for
-the live app.
+The code is (somewhat arbitrarily -- see below) divided into a series of smaller modules inside `lib/`:
 
-- Run the app:
-    `node app.js`
-    
-Things it might be nice to do
------------------------------
+1. `auth/`: Exports Twitter authentication information. Structure like `index.js.template`.
+1. `common/`: Exports objects and functions used in multiple places: The MongoDB collection, the keyword trackers, and the `emit_tweet` function used to send tweets to the client.
+1. `listen/`: Exports the `track` function for sending the recent tweet history to clients. This is the main communication from the client to the server -- hence, the server "listens". `track` takes a socket.io object and a list of trackers as arguments.
+1. `stream/`: Exports `new_stream`, the function for opening a connection with the Twitter streaming API and emitting them as tweets to the client. `new_stream` takes a socket.io object as its argument.
+1. `update_herald/`: Exports a function that adds functionality to GET a custom XML file of Herald articles about Mifflin on the `/update_herald` endpoint to an [Express](http://expressjs.com/) app given as an argument.
 
-- [x] Modularize server-side code
-- [ ] Include the Sass sheets, not the generated main.css
-- [ ] Refactor the bad parts of the client-side JS
-- [ ] Remove internal references to Mifflin or Revelry 
-- [x] Add a branch for the static version of the page
-- [ ] Tests
+# NOTE: This code is the result of a code rush. For posterity's sake, the unpolished code is here.
