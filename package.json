@@ -1,16 +1,30 @@
 {
-  "name": "bh-mifflin-revelry",
-  "version": "13.5.27",
-  "description": "mifflin-revelry dashboard",
-  "main": "app.js",
-  "scripts": {
+  "name": "bh-mifflin-revelry"
+, "version": "13.10.21"
+, "description": "mifflin-revelry dashboard"
+, "main": "app.js"
+, "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": "",
-  "author": "Zach Thomae",
-  "license": "BSD",
-  "private": true,
-  "dependencies": {
+  }
+, "repository": "https://github.com/badgerherald/mifflin-revelry-dashboard"
+, "author": "Badger Herald Web Team <web@badgerherald.com>"
+, "contributors":
+  [
+    {
+      "name": "Will Haynes"
+    , "email": "whaynes@badgerherald.com"
+    }
+  , {
+      "name": "Zach Thomae"
+    , "email": "zthomae@badgerherald.com"
+    }
+  , {
+      "name": "Matt Neil"
+    , "email": "mneil@badgerherald.com"
+    }
+  ]
+, "license": "MIT"
+, "dependencies": {
     "express": "3.x",
     "ntwitter": "0.5",
     "socket.io": "0.9.14",
